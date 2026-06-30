@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Do You Like Me?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffd6e8, #d6f0ff, #fff0f5);
+      font-family: "Comic Sans MS", cursive;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 430px;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff5fa2;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #777;
+      font-size: 18px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 14px 32px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+
+    #yes {
+      background: #ff85b3;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 133, 179, 0.5);
+    }
+
+    #yes:hover {
+      transform: scale(1.12);
+      background: #ff4f97;
+    }
+
+    #no {
+      background: #bde0fe;
+      color: #444;
+      position: fixed;
+      left: 55%;
+      top: 55%;
+      z-index: 5;
+      box-shadow: 0 8px 20px rgba(189, 224, 254, 0.6);
+    }
+
+    #message {
+      display: none;
+      color: #ff4f97;
+      font-size: 28px;
+      margin-top: 25px;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 4s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Do you like me? 🥺💗</h1>
+    <p>Please choose carefully hehe...</p>
+
+    <div class="buttons">
+      <button id="yes">Yess 💖</button>
+      <button id="no">Noo 😭</button>
+    </div>
+
+    <div id="message">I knew you would say yess 💕✨</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const message = document.getElementById("message");
+
+    function moveNoButton() {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+
+    noBtn.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", function() {
+      message.style.display = "block";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+
+    setInterval(function() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 18 + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(function() {
+        heart.remove();
+      }, 4000);
+    }, 500);
+  </script>
+
+</body>
+</html>
